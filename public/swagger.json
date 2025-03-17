@@ -1,0 +1,309 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/itineraires": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Obtenir tous les itinéraires",
+                "description": "Afficher une liste de tous les itinéraires.",
+                "operationId": "3430f7c102362c7bb7ebe73a41768867",
+                "responses": {
+                    "200": {
+                        "description": "Une liste d'itinéraires",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Itineraire"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Créer un itinéraire",
+                "description": "Créer un nouvel itinéraire.",
+                "operationId": "4ba3f5c571eccc79c4d92bc5aa233744",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre",
+                                    "categorie",
+                                    "duree",
+                                    "destinations"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string"
+                                    },
+                                    "categorie": {
+                                        "type": "string"
+                                    },
+                                    "duree": {
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "destinations": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "nom": {
+                                                    "type": "string"
+                                                },
+                                                "lieu": {
+                                                    "type": "string"
+                                                },
+                                                "details": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "endroit",
+                                                                    "activité",
+                                                                    "plat"
+                                                                ]
+                                                            },
+                                                            "nom": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Itinéraire créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Itineraire"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/itineraires/search": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Rechercher des itinéraires",
+                "description": "Rechercher des itinéraires.",
+                "operationId": "8efa9161ba3f9cd824725bb59cc3e026",
+                "parameters": [
+                    {
+                        "name": "categorie",
+                        "in": "query",
+                        "description": "Filtrer par catégorie",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "duree",
+                        "in": "query",
+                        "description": "Filtrer par durée",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Itinéraires trouvés",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Itineraire"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/itineraires/{id}": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Afficher un itinéraire spécifique",
+                "description": "Afficher les détails d'un itinéraire spécifié.",
+                "operationId": "8f47feb8f614ca56fc1de53f74123c0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Les détails de l'itinéraire",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Itineraire"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Mettre à jour un itinéraire",
+                "description": "Mettre à jour un itinéraire spécifique.",
+                "operationId": "2678c889bf14427f1d0aa5dd9e23471c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre",
+                                    "categorie",
+                                    "duree"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string"
+                                    },
+                                    "categorie": {
+                                        "type": "string"
+                                    },
+                                    "duree": {
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Itineraire"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/itineraires/{id}/ajouter-ala-liste": {
+            "post": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Ajouter un itinéraire à la liste des visites",
+                "description": "Ajouter un itinéraire à la liste des visites de l'utilisateur.",
+                "operationId": "16b112397cb473590320eed28a1bb951",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Ajouté à la liste à visiter",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Déjà ajouté",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Itineraire",
+            "description": "Opérations liées aux itinéraires"
+        }
+    ]
+}

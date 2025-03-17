@@ -14,4 +14,8 @@ class Destination extends Model
     {
         return $this->belongsTo(Itineraire::class);
     }
+    public function details(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(DestinationDetail::class);
+    }
 }
